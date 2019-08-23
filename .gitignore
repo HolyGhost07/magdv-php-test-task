@@ -1,0 +1,5 @@
+app/vendor
+app/frontend.conf
+mysql/var/lib/mysql
+
+.idea

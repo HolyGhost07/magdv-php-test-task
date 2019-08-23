@@ -1,0 +1,6 @@
+parameters:
+    autoload_directories:
+        - ./tests
+        - ./src
+    ignoreErrors:
+        - '#Constant ROOT_PATH not found#'
