@@ -7,7 +7,7 @@ namespace App\Document\Controllers;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Document\DocumentService;
-use App\Document\Exceptions\DocumentServiceException;
+use App\Exceptions\ServiceException;
 
 class DocumentPostController
 {
@@ -42,7 +42,7 @@ class DocumentPostController
             $response = $response
                 ->withStatus(200)
                 ->withJson(['document' => $document]);
-        } catch (DocumentServiceException $e) {
+        } catch (ServiceException $e) {
             $response = $response
                 ->withStatus($e->getCode())
                 ->withJson(['errors' => [$e->getMessage()]]);
@@ -70,7 +70,7 @@ class DocumentPostController
             $response = $response
                 ->withStatus(200)
                 ->withJson(['document' => $document]);
-        } catch (DocumentServiceException $e) {
+        } catch (ServiceException $e) {
             $response = $response
                 ->withStatus($e->getCode())
                 ->withJson(['errors' => [$e->getMessage()]]);

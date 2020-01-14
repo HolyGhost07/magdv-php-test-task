@@ -17,7 +17,7 @@ class DocumentServicesProvider implements ServiceProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function register(Container $pimple)
+    public function register(Container $pimple): void
     {
         $pimple[DocumentFactory::class] = function (Container $container) {
             return new DocumentFactory();

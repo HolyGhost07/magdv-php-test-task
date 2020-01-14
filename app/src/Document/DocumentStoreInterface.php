@@ -6,6 +6,8 @@ namespace App\Document;
 
 use Ramsey\Uuid\UuidInterface;
 use App\Document\DocumentEntity;
+use App\Exceptions\NotFoundException;
+use App\Exceptions\StoreException;
 
 interface DocumentStoreInterface
 {
@@ -13,14 +15,14 @@ interface DocumentStoreInterface
     /**
      * @param DocumentEntity $entity
      * @return void
-     * @throws DocumentStoreException
+     * @throws StoreException
      */
     public function save(DocumentEntity $entity): void;
 
     /**
      * @param UuidInterface $id
      * @return DocumentEntity
-     * @throws DocumentStoreException
+     * @throws StoreException
      * @throws NotFoundException
      */
     public function findByID(UuidInterface $id): DocumentEntity;

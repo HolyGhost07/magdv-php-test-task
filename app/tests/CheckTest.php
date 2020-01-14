@@ -8,7 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class CheckTest extends TestCase
 {
-    public function test()
+    
+    public function test(): void
     {
         $this->assertEquals(1, 1);
     }

@@ -19,7 +19,7 @@ class ConnectionProvider implements ServiceProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function register(Container $pimple)
+    public function register(Container $pimple): void
     {   
         $pimple['EntityManager'] = function () {
             // Create a simple Doctrine ORM configuration for Annotations

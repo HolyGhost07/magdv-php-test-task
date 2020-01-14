@@ -1,5 +1,5 @@
 app/vendor
 app/frontend.conf
 mysql/var/lib/mysql
-
+mariadb/var/lib/mysql
 .idea

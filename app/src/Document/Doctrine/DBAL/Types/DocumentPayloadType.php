@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Document\Doctrine\DBAL\Types;
 
+use InvalidArgumentException;
 use Doctrine\DBAL\Types\JsonArrayType;
 use App\Document\ValueObjects\PayloadVO;
+use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class DocumentPayloadType extends JsonArrayType

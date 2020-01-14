@@ -2,5 +2,8 @@ parameters:
     autoload_directories:
         - ./tests
         - ./src
+
+    checkMissingIterableValueType: false
+    
     ignoreErrors:
         - '#Constant ROOT_PATH not found#'

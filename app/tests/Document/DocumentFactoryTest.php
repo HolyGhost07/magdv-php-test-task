@@ -12,6 +12,9 @@ use App\Document\ValueObjects\PayloadVO;
 class DocumentFactoryTest extends TestCase
 {
 
+    /**
+     * @var DocumentFactory
+     */
     private $factory;
 
     public function setUp(): void

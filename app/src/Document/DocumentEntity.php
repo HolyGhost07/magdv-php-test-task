@@ -110,7 +110,7 @@ class DocumentEntity implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'id' => (string)$this->uuid,
+            'id' => $this->uuid->toString(),
             'status' => (string)$this->status,
             'payload' => $this->payload,
             'createdAt' => $this->createdAt->format(DateTime::ISO8601),

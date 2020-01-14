@@ -10,15 +10,17 @@ use App\Document\DocumentService;
 class DocumentServiceTest extends TestCase
 {
 
-    /** @var DocumentService */
+    /**
+     * @var DocumentService
+     * */
     private $service;
 
-    public function setUp()
+    public function setUp(): void
     {
         // $this->service = new DocumentService();
     }
 
-    public function testCreateDocument()
+    public function testCreateDocument(): void
     {
         // $expected = new DocumentEntity(null);
 

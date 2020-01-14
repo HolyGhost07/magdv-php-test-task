@@ -6,11 +6,11 @@ namespace App\Document;
 
 use Exception;
 use Ramsey\Uuid\UuidInterface;
+use App\Exceptions\StoreException;
 use Doctrine\ORM\EntityRepository;
 use App\Exceptions\NotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
-use App\Document\Exceptions\DocumentStoreException;
 
 class DocumentSqlStore implements DocumentStoreInterface
 {
@@ -31,7 +31,7 @@ class DocumentSqlStore implements DocumentStoreInterface
     /**
      * @param DocumentEntity $entity
      * @return void
-     * @throws DocumentStoreException
+     * @throws StoreException
      */
     public function save(DocumentEntity $entity): void
     {
@@ -44,7 +44,7 @@ class DocumentSqlStore implements DocumentStoreInterface
                 $message = sprintf('%s ID: %s', $message, $id->toString());
             }
 
-            throw new DocumentStoreException(
+            throw new StoreException(
                 $message,
                 $e->getCode(),
                 $e
@@ -55,28 +55,29 @@ class DocumentSqlStore implements DocumentStoreInterface
     /**
      * @param UuidInterface $id
      * @return DocumentEntity
-     * @throws DocumentStoreException
+     * @throws StoreException
      * @throws NotFoundException
      */
     public function findByID(UuidInterface $id): DocumentEntity
     {
         try {
-            $entity = $this->em->find(DocumentEntity::class, $id);
+            /** @var DocumentEntity */
+            $document = $this->em->find(DocumentEntity::class, $id);
         } catch (Exception $e) {
-            throw new DocumentStoreException(
+            throw new StoreException(
                 sprintf('Can\'t find document. ID: %s', $id->toString()),
                 500,
                 $e
             );
         }
 
-        if (is_null($entity)) {
+        if ($document == null) {
             throw new NotFoundException(
                 sprintf('Not found document. ID: %s', $id->toString())
             );
         }
 
-        return $entity;
+        return $document;
     }
 
     /**
@@ -86,6 +87,6 @@ class DocumentSqlStore implements DocumentStoreInterface
      */
     public function find(int $limit, int $offset): array
     {
-        return $this->repository->findAll();
+        return $this->em->getRepository(DocumentEntity::class)->findAll();
     }
 }

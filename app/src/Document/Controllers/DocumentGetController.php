@@ -7,12 +7,14 @@ namespace App\Document\Controllers;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Document\DocumentService;
-use App\Document\Exceptions\DocumentServiceException;
+use App\Exceptions\ServiceException;
 
 class DocumentGetController
 {
 
-    /** @var DocumentService */
+    /**
+     * @var DocumentService
+     * */
     private $service;
 
     /**
@@ -43,7 +45,7 @@ class DocumentGetController
                 ->withJson([
                     'document' => $document,
                 ]);
-        } catch (DocumentServiceException $e) {
+        } catch (ServiceException $e) {
             $response = $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus($e->getCode())
@@ -74,7 +76,7 @@ class DocumentGetController
                 ->withJson([
                     'documents' => $this->service->find(),
                 ]);
-        } catch (DocumentServiceException $e) {
+        } catch (ServiceException $e) {
             $response = $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus($e->getCode())

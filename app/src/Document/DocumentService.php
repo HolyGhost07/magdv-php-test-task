@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Document;
 
 use Ramsey\Uuid\Uuid;
+use App\Exceptions\StoreException;
+use App\Exceptions\ServiceException;
 use App\Exceptions\NotFoundException;
 use App\Document\ValueObjects\StatusVO;
-use App\Document\Exceptions\DocumentStoreException;
-use App\Document\Exceptions\DocumentServiceException;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 
 class DocumentService
@@ -19,7 +19,9 @@ class DocumentService
      */
     private $factory;
 
-    /** @var DocumentStoreInterface */
+    /**
+     * @var DocumentStoreInterface
+     * */
     private $store;
 
     /**
@@ -34,14 +36,16 @@ class DocumentService
         $this->store = $store;
     }
 
-    public function create()
+    public function create(): DocumentEntity
     {
         $document = $this->factory->createDraft();
+
         $this->store->save($document);
+
         return $document;
     }
 
-    public function find()
+    public function find(): array
     {
         return $this->store->find(100, 0);
     }
@@ -49,7 +53,7 @@ class DocumentService
     /**
      * @param string $id
      * @return DocumentEntity
-     * @throws DocumentServiceException
+     * @throws ServiceException
      * @throws NotFoundException
      */
     public function findOne(string $id): DocumentEntity
@@ -57,13 +61,13 @@ class DocumentService
         try {
             $document = $this->store->findByID(Uuid::fromString($id));
         } catch (InvalidUuidStringException $e) {
-            throw new DocumentServiceException(
+            throw new ServiceException(
                 $e->getMessage(),
                 400,
                 $e
             );
-        } catch (DocumentStoreException | NotFoundException $e) {
-            throw new DocumentServiceException(
+        } catch (StoreException | NotFoundException $e) {
+            throw new ServiceException(
                 $e->getMessage(),
                 $e->getCode(),
                 $e
@@ -76,7 +80,7 @@ class DocumentService
     /**
      * @param string $id
      * @return DocumentEntity
-     * @throws DocumentServiceException
+     * @throws ServiceException
      * @throws NotFoundException
      */
     public function publish(string $id): DocumentEntity
@@ -89,13 +93,13 @@ class DocumentService
 
             return $document;
         } catch (InvalidUuidStringException $e) {
-            throw new DocumentServiceException(
+            throw new ServiceException(
                 $e->getMessage(),
                 400,
                 $e
             );
-        } catch (DocumentStoreException | NotFoundException $e) {
-            throw new DocumentServiceException(
+        } catch (StoreException | NotFoundException $e) {
+            throw new ServiceException(
                 $e->getMessage(),
                 $e->getCode(),
                 $e
