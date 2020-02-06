@@ -15,7 +15,7 @@ use App\Document\ValueObjects\PayloadVO;
  * @Entity
  * @Table(name="documents")
  **/
-class DocumentEntity implements JsonSerializable
+class Document implements JsonSerializable
 {
 
     /**

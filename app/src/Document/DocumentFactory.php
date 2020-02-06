@@ -11,11 +11,11 @@ class DocumentFactory
 {
 
     /**
-     * @return DocumentEntity
+     * @return Document
      */
-    public function createDraft(): DocumentEntity
+    public function createDraft(): Document
     {
-        return new DocumentEntity(
+        return new Document(
             new StatusVO(StatusVO::DRAFT),
             new PayloadVO()
         );

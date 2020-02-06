@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Document;
 
 use Ramsey\Uuid\UuidInterface;
-use App\Document\DocumentEntity;
+use App\Document\Document;
 use App\Exceptions\NotFoundException;
 use App\Exceptions\StoreException;
 
@@ -13,19 +13,19 @@ interface DocumentStoreInterface
 {
 
     /**
-     * @param DocumentEntity $entity
+     * @param Document $entity
      * @return void
      * @throws StoreException
      */
-    public function save(DocumentEntity $entity): void;
+    public function save(Document $entity): void;
 
     /**
      * @param UuidInterface $id
-     * @return DocumentEntity
+     * @return Document
      * @throws StoreException
      * @throws NotFoundException
      */
-    public function findByID(UuidInterface $id): DocumentEntity;
+    public function findByID(UuidInterface $id): Document;
 
     /**
      * @param integer $limit

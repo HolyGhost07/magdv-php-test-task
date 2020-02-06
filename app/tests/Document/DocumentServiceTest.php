@@ -22,11 +22,11 @@ class DocumentServiceTest extends TestCase
 
     public function testCreateDocument(): void
     {
-        // $expected = new DocumentEntity(null);
+        // $expected = new Document(null);
 
         // $actual = $this->service->createDocument();
 
-        // $this->assertInstanceOf(DocumentEntity::class, $actual);
+        // $this->assertInstanceOf(Document::class, $actual);
         // $this->assertEquals($expected, $actual);
         $this->assertEquals(true, true);
     }

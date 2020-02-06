@@ -36,7 +36,7 @@ class DocumentService
         $this->store = $store;
     }
 
-    public function create(): DocumentEntity
+    public function create(): Document
     {
         $document = $this->factory->createDraft();
 
@@ -52,11 +52,11 @@ class DocumentService
 
     /**
      * @param string $id
-     * @return DocumentEntity
+     * @return Document
      * @throws ServiceException
      * @throws NotFoundException
      */
-    public function findOne(string $id): DocumentEntity
+    public function findOne(string $id): Document
     {
         try {
             $document = $this->store->findByID(Uuid::fromString($id));
@@ -79,11 +79,11 @@ class DocumentService
 
     /**
      * @param string $id
-     * @return DocumentEntity
+     * @return Document
      * @throws ServiceException
      * @throws NotFoundException
      */
-    public function publish(string $id): DocumentEntity
+    public function publish(string $id): Document
     {
         try {
             $document = $this->store->findByID(Uuid::fromString($id));

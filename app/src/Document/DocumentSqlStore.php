@@ -29,11 +29,11 @@ class DocumentSqlStore implements DocumentStoreInterface
     }
 
     /**
-     * @param DocumentEntity $entity
+     * @param Document $entity
      * @return void
      * @throws StoreException
      */
-    public function save(DocumentEntity $entity): void
+    public function save(Document $entity): void
     {
         try {
             $this->em->persist($entity);
@@ -54,15 +54,15 @@ class DocumentSqlStore implements DocumentStoreInterface
 
     /**
      * @param UuidInterface $id
-     * @return DocumentEntity
+     * @return Document
      * @throws StoreException
      * @throws NotFoundException
      */
-    public function findByID(UuidInterface $id): DocumentEntity
+    public function findByID(UuidInterface $id): Document
     {
         try {
-            /** @var DocumentEntity */
-            $document = $this->em->find(DocumentEntity::class, $id);
+            /** @var Document */
+            $document = $this->em->find(Document::class, $id);
         } catch (Exception $e) {
             throw new StoreException(
                 sprintf('Can\'t find document. ID: %s', $id->toString()),
@@ -87,6 +87,6 @@ class DocumentSqlStore implements DocumentStoreInterface
      */
     public function find(int $limit, int $offset): array
     {
-        return $this->em->getRepository(DocumentEntity::class)->findAll();
+        return $this->em->getRepository(Document::class)->findAll();
     }
 }
