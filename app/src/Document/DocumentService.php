@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Document;
 
 use Ramsey\Uuid\Uuid;
+use InvalidArgumentException;
 use App\Exceptions\StoreException;
 use App\Exceptions\ServiceException;
 use App\Exceptions\NotFoundException;
@@ -38,10 +39,24 @@ class DocumentService
 
     public function create(): Document
     {
-        $document = $this->factory->createDraft();
+        try {
+            $document = $this->factory->createDraft();
 
-        $this->store->save($document);
-
+            $this->store->save($document);
+        } catch (InvalidArgumentException $e) {
+            throw new ServiceException(
+                $e->getMessage(),
+                400,
+                $e
+            );
+        } catch (StoreException $e) {
+            throw new ServiceException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
+        }
+        
         return $document;
     }
 
@@ -60,7 +75,7 @@ class DocumentService
     {
         try {
             $document = $this->store->findByID(Uuid::fromString($id));
-        } catch (InvalidUuidStringException $e) {
+        } catch (InvalidUuidStringException | InvalidArgumentException $e) {
             throw new ServiceException(
                 $e->getMessage(),
                 400,
@@ -92,7 +107,7 @@ class DocumentService
             $this->store->save($document);
 
             return $document;
-        } catch (InvalidUuidStringException $e) {
+        } catch (InvalidUuidStringException | InvalidArgumentException $e) {
             throw new ServiceException(
                 $e->getMessage(),
                 400,

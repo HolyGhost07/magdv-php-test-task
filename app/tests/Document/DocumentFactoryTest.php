@@ -17,11 +17,17 @@ class DocumentFactoryTest extends TestCase
      */
     private $factory;
 
+    /**
+     * @return void
+     */
     public function setUp(): void
     {
         $this->factory = new DocumentFactory();
     }
 
+    /**
+     * @return void
+     */
     public function testCreateDraft(): void
     {
         $expectedStatus = new StatusVO(StatusVO::DRAFT);

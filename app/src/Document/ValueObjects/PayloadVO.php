@@ -23,8 +23,7 @@ class PayloadVO implements JsonSerializable
     {
         if (json_encode($payload) && json_last_error() !== JSON_ERROR_NONE) {
             throw new InvalidArgumentException(
-                sprintf('Json isn\'t not valid. Error: %s', json_last_error()),
-                400
+                sprintf('Json is not valid. Error: %s', json_last_error())
             );
         }
 

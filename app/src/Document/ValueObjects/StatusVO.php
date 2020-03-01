@@ -40,7 +40,7 @@ class StatusVO
         $status = mb_strtolower($status);
         if (!in_array($status, self::STATUSES)) {
             $message = sprintf('%s is not valid status', $status);
-            throw new InvalidArgumentException($message, 400);
+            throw new InvalidArgumentException($message);
         }
 
         $this->status = $status;
